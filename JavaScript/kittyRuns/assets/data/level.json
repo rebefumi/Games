@@ -1,0 +1,16 @@
+{
+  "tileSize": 40,
+  "maxJumpDistance": 120,
+  "levelSpeed": 200,
+  "playerSpeed": 100,
+  "jumpSpeed": -300,
+  "minSeparation": 60,
+  "maxSeparation": 200,
+  "minDiffY": -120,
+  "maxDiffY": 120,
+  "minTiles": 1,
+  "maxTiles": 5,
+  "minHeightCoin": 90,
+  "maxHeightCoin": 110,
+  "drawCoinPercent": 0.4
+}
