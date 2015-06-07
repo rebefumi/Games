@@ -1,0 +1,5 @@
+{
+    "PLAYER_SPEED" : 200,
+    "BULLET_SPEED" : -1000,
+    "NUM_LEVELS" : 3
+}
