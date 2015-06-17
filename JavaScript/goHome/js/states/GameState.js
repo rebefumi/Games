@@ -4,29 +4,31 @@ ChickenGame.GameState = {
   init: function(){
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.dataJson = JSON.parse(this.game.cache.getText('constant'));
+    this.levelData = JSON.parse(this.game.cache.getText('level'));
     this.game.world.setBounds (0,0, this.dataJson.gameState.world_width, this.dataJson.gameState.world_height);
     this.cursors = this.game.input.keyboard.createCursorKeys();
+    this.level = 1;
+    this.laneFreeList = this.levelData.initial_cars_lane;
+    this.carsPool = this.add.group();
+    this.carsPool.enableBody = true;
 
   },
   create: function (){
     this.game.stage.backgroundColor = "#000";
 
-    this.levelData = JSON.parse(this.game.cache.getText('level'));
+
 
     this.background = this.game.add.sprite(0,0, 'background');
+    this.game.world.sendToBack(this.background);
 
-    //load images and sprite
 
-    this.cars = this.add.group();
-    this.cars.enableBody = true;
-
-    var car, level;
-    this.levelData.cars.forEach(function(element){
-      level = this.dataJson.gameState.car_level[element];
-      car = this.cars.create(3, level.y, 'carBlue');
-      car.anchor.setTo(1,0);
-      car.body.velocity.x = this.levelData.car_type.blue.velocity;
+    this.levelData.initial_cars_lane.forEach(function(element){
+      new ChickenGame.Car(this.game, this.time.ms, this.levelData, this.dataJson.gameState.car_lane[element].y, this.carsPool);
     }, this);
+
+    this.time = this.game.time.create(this.game);
+    this.time.start();
+
 
     this.lives = this.add.group();
     var live;
@@ -36,9 +38,7 @@ ChickenGame.GameState = {
     }, this);
 
     this.numLives = this.lives.length;
-
     this.livesEmpty = this.add.group();
-    var live;
     this.dataJson.gameState.lives_empty.forEach(function (element){
       live = this.livesEmpty.create(element.x, element.y, 'live_empty');
       live.anchor.setTo(0.5);
@@ -53,35 +53,68 @@ ChickenGame.GameState = {
     this.player.body.collideWorldBounds = true;
     this.player.body.bounce.set(1, 0);
 
+    this.style = {font: '50px Arial', fill:'orange'};
+    this.levelLabel = this.add.text (this.game.world.width - 30 , 0, this.level, this.style);
 
   },
   update: function (){
-    this.game.physics.arcade.overlap(this.player, this.cars, this.returnGame, null, this);
+    this.game.physics.arcade.overlap(this.player, this.carsPool, this.returnGame, null, this);
 
     if ( this.cursors.up.isDown){
-      this.player.y -= this.levelData.RUNNING_SPEED;
+      this.player.y -= this.dataJson.gameState.RUNNING_SPEED;
       this.player.play('walking');
     }else if (this.cursors.down.isDown){
-      this.player.y += this.levelData.RUNNING_SPEED;
+      this.player.y += this.dataJson.gameState.RUNNING_SPEED;
       this.player.play('walking');
     }else{
       this.player.animations.stop();
       this.player.frame = 3;
     }
 
-    this.cars.forEach(function(element){
-      if(element.x > 860) {
-        element.x = -40;
+    this.carsPool.forEachAlive(function(element){
+      console.log(element);
+      if((element.x > 860 || element.x < -60)) {
+        this.createCar(element);
       }
     }, this);
+
+    if (this.player.top == 0){
+      this.level++;
+      this.levelLabel.text = this.level;
+      this.player.y = this.game.world.height;
+    }
+  },
+  createCar: function (element){
+    element.kill();
+    new ChickenGame.Car(this.game, this.time.ms, this.levelData, this.pickLane(), this.carsPool);
+  },
+  pickLane: function (){
+    var pick = Math.floor(Math.random()* this.laneFreeList.length);
+    this.laneFreeList.splice(pick, 1);
+    return this.dataJson.gameState.car_lane[pick].y
   },
   returnGame: function() {
     this.player.y =  this.dataJson.gameState.chicken.y;
     this.numLives --;
     if (this.numLives > 0){
       this.lostLive();
+      //TODO: Add a claxon sound or a chicken sound
     }else{
-      this.gameOver();
+      this.player.kill();
+      this.overlay = this.add.bitmapData(this.game.width, this.game.height);
+      this.overlay.ctx.fillStyle = '#000';
+      this.overlay.ctx.fillRect(0, 0, this.game.width, this.game.height);
+
+      this.panel = this.add.sprite(0, this.game.height, this.overlay);
+      this.panel.alpha = 0.55;
+
+      var gameOverPanel = this.add.tween(this.panel);
+      gameOverPanel.to({y: 0}, 500);
+
+      gameOverPanel.onComplete.add(function () {
+        this.gameOver();
+      }, this);
+      gameOverPanel.start();
     }
 
   },
@@ -90,7 +123,7 @@ ChickenGame.GameState = {
     this.livesEmpty.children[this.numLives].visible = true;
   },
   gameOver: function (){
-    game.state.start('HomeState');
+    this.game.state.start('GameOverState', true, false, "7");
   }
 
 };
