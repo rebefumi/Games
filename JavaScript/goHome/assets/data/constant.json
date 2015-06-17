@@ -12,32 +12,32 @@
   "gameState":{
     "world_width": 800,
     "world_height": 600,
-    "car_level":{
-      "one":{
+    "car_lane":[
+      {
         "y": 520
       },
-      "two":{
+      {
         "y": 465
       },
-      "three":{
+      {
         "y": 410
       },
-      "four":{
+      {
         "y": 350
       },
-      "five":{
+      {
         "y": 205
       },
-      "six":{
+      {
         "y": 145
       },
-      "seven":{
+      {
         "y": 85
       },
-      "eight":{
+      {
         "y": 35
       }
-    },
+      ],
     "chicken":{
       "width": 21,
       "height": 35,
@@ -54,7 +54,11 @@
       {"x": 30, "y": 15},
       {"x": 65, "y": 15},
       {"x": 100, "y": 15}
-    ]
-
+    ],
+    "RUNNING_SPEED": 2,
+    "chicken2":{
+      "x": 500,
+      "y": 50
+    }
   }
 }

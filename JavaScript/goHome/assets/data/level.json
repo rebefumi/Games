@@ -1,13 +1,39 @@
 {
-  "chicken":{
-    "x": 500,
-    "y": 50
-  },
-  "cars": ["two", "four", "six"],
+  "initial_cars_lane": [2, 4, 6, 7],
   "car_type": {
     "blue": {
       "velocity": 100
+    },
+    "black":{
+      "velocity": 150
+    },
+    "deepblue":{
+      "velocity": 175
+    },
+    "deepgreen":{
+      "velocity": 200
+    },
+    "gray":{
+      "velocity": 220
+    },
+    "green":{
+      "velocity": 180
+    },
+    "orange":{
+      "velocity": 210
+    },
+    "police":{
+      "velocity": 300
+    },
+    "purple":{
+      "velocity": 125
+    },
+    "red":{
+      "velocity": 250
+    },
+    "yellow":{
+      "velocity": 225
     }
   },
-  "RUNNING_SPEED": 5
+  "cars_color": ["blue",  "black", "deepblue", "deepgreen", "gray", "green", "orange", "police", "purple", "red", "yellow"]
 }
