@@ -22,9 +22,6 @@
     "orange":{
       "velocity": 210
     },
-    "police":{
-      "velocity": 350
-    },
     "purple":{
       "velocity": 125
     },
@@ -33,6 +30,9 @@
     },
     "yellow":{
       "velocity": 225
+    },
+    "police":{
+      "velocity": 350
     }
   },
   "cars_color": ["blue",  "black", "deepblue", "deepgreen", "gray", "green", "orange", "police", "purple", "red", "yellow"]
