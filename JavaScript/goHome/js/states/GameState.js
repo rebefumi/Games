@@ -88,7 +88,7 @@ ChickenGame.GameState = {
 
     //check if some car leave the screen, and then create a new car
     this.carsPool.forEachAlive(function(element){
-      if((element.x > 860 || element.x < -60)) {
+      if((element.x > 860 || element.x < -30)) {
         this.deleteCar(element);
       }
     }, this);
@@ -104,7 +104,6 @@ ChickenGame.GameState = {
     //remove the car of the lane
     this.laneCarList[element.lane] --;
     //kill the car
-    element.alive = false;
     element.kill();
     //choose a new lane for create the car
     this.pickLane();
@@ -116,8 +115,10 @@ ChickenGame.GameState = {
     }else{
       this.carsPool.forEachAlive(function (element){
         if (element.lane == pick){
-          console.log(element);
-          element.cloneCar();
+          car = element.cloneCar();
+          this.carsPool.add(car);
+          car.body.velocity.x = car.direction * this.levelData.car_type[this.levelData.cars_color[car.frame]].velocity;
+
         }
       }, this);
     }
@@ -163,15 +164,17 @@ ChickenGame.GameState = {
     }else {
       var direction = car.pickDirection();
       var color = car.pickColor();
-      car.reset(direction, this.dataJson.gameState.car_lane[numLane]);
+      car.alive = true;
+      car.reset(car.getPositionX(direction), this.dataJson.gameState.car_lane[numLane].y);
       car.direction = direction;
       car.frame = color;
+
     }
 
     this.laneCarList[numLane]++;
-
+    car.lane = numLane;
     car.scale.setTo(car.direction, 1);
-    car.body.velocity.x = car.direction * this.levelData.car_type[this.levelData.cars_color[car.frame - 1]].velocity;
+    car.body.velocity.x = car.direction * this.levelData.car_type[this.levelData.cars_color[car.frame]].velocity;
   }
 
 };
