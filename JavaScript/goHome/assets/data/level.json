@@ -35,5 +35,6 @@
       "velocity": 350
     }
   },
-  "cars_color": ["blue",  "black", "deepblue", "deepgreen", "gray", "green", "orange", "police", "purple", "red", "yellow"]
+  "cars_color": ["blue",  "black", "deepblue", "deepgreen", "gray", "green", "orange", "purple", "red", "yellow", "police"],
+  "level_start_police_car": 3
 }
