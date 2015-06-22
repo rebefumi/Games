@@ -77,7 +77,7 @@ ChickenGame.GameState = {
   },
   update: function (){
     //check if there is a collide between the chicken and the cars
-    this.game.physics.arcade.overlap(this.player, this.carsPool, this.returnGame, null, this);
+    this.game.physics.arcade.overlap(this.player, this.carsPool, this.runOver, null, this);
 
     //move the chicken when the arrows are pressed
     if (this.cursors.up.isUp){
@@ -143,7 +143,7 @@ ChickenGame.GameState = {
       }, this);
     }
   },
-  returnGame: function() {
+  runOver: function() {
     this.player.y =  this.dataJson.gameState.chicken.y;
     this.numLives --;
     this.repress = true;
