@@ -109,12 +109,13 @@ ChickenGame.GameState = {
       this.repress = true;
     }
 
-    if((this.policeCar.x > 860 || this.policeCar < -30)) {
-      this.policeCar.kill();
+    if((this.policeCar.x > 960 || this.policeCar.x < -130)) {
+      this.policeCar.body.velocity.x = 0;
+      this.policeCar.alive = false;
     }
 
     if (this.level > this.levelData.level_start_police_car && !this.policeCar.alive){
-      if (Math.floor(Math.random()*100) > 10 ){
+      if (Math.floor(Math.random()*100) == 0 ){
         this.updatePoliceCar();
       }
     }
@@ -202,7 +203,8 @@ ChickenGame.GameState = {
     this.game.add.existing(this.policeCar);
   },
   updatePoliceCar: function (){
-    this.policeCar.alive;
+    this.policeCar.alive  = true;
+
     this.policeCar.updateCarPolice();
   }
 
