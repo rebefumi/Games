@@ -23,6 +23,9 @@ ChickenGame.GameState = {
     //the pool for the cars
     this.carsPool = this.add.group();
     this.carsPool.enableBody = true;
+
+    //When chicken get the final of the road  you must release the up button to continue
+    this.repress = false;
   },
   create: function (){
     //added background to the game
@@ -77,7 +80,10 @@ ChickenGame.GameState = {
     this.game.physics.arcade.overlap(this.player, this.carsPool, this.returnGame, null, this);
 
     //move the chicken when the arrows are pressed
-    if ( this.cursors.up.isDown){
+    if (this.cursors.up.isUp){
+      this.repress=false;
+    }
+    if (this.cursors.up.isDown && !this.repress){
       this.player.y -= this.dataJson.gameState.RUNNING_SPEED;
       this.player.play('walking');
     }else if (this.cursors.down.isDown){
@@ -100,14 +106,15 @@ ChickenGame.GameState = {
       this.level++;
       this.levelLabel.text = this.level;
       this.player.y = this.game.world.height;
+      this.repress = true;
     }
 
     if((this.policeCar.x > 860 || this.policeCar < -30)) {
       this.policeCar.kill();
     }
 
-    if (this.level > this.levelData.level_start_police_car){
-      if (Math.floor(Math.random()*100) == 0 ){
+    if (this.level > this.levelData.level_start_police_car && !this.policeCar.alive){
+      if (Math.floor(Math.random()*100) > 10 ){
         this.updatePoliceCar();
       }
     }
@@ -138,8 +145,10 @@ ChickenGame.GameState = {
   returnGame: function() {
     this.player.y =  this.dataJson.gameState.chicken.y;
     this.numLives --;
+    this.repress = true;
     if (this.numLives > 0){
       this.lostLive();
+
       //TODO: Add a claxon sound or a chicken sound
     }else{
       this.player.kill();
@@ -194,7 +203,7 @@ ChickenGame.GameState = {
   },
   updatePoliceCar: function (){
     this.policeCar.alive;
-    this.policeCar.setDirection ();
+    this.policeCar.updateCarPolice();
   }
 
 };
