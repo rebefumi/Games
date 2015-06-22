@@ -36,5 +36,6 @@
     }
   },
   "cars_color": ["blue",  "black", "deepblue", "deepgreen", "gray", "green", "orange", "purple", "red", "yellow", "police"],
-  "level_start_police_car": 3
+  "level_start_police_car": 3,
+  "level_create_cars": 3
 }

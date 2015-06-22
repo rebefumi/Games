@@ -107,6 +107,9 @@ ChickenGame.GameState = {
       this.levelLabel.text = this.level;
       this.player.y = this.game.world.height;
       this.repress = true;
+      if (this.level > this.levelData.level_create_cars){
+        this.pickLane();
+      }
     }
 
     if((this.policeCar.x > 960 || this.policeCar.x < -130)) {
