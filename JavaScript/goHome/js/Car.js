@@ -33,7 +33,7 @@ ChickenGame.Car.prototype.cloneCar = function (){
 };
 
 ChickenGame.Car.prototype.pickColor = function (){
-    var color = Math.floor(Math.random()*this.carJson.cars_color.length-1);
+    var color = Math.floor(Math.random()*(this.carJson.cars_color.length-1));
     return color;
 };
 

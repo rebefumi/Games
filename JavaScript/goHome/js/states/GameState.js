@@ -69,6 +69,8 @@ ChickenGame.GameState = {
     this.style = {font: '50px Arial', fill:'orange'};
     this.levelLabel = this.add.text (this.game.world.width - 30 , 0, this.level, this.style);
 
+    //create a police car
+    this.createPoliceCar();
   },
   update: function (){
     //check if there is a collide between the chicken and the cars
@@ -98,6 +100,16 @@ ChickenGame.GameState = {
       this.level++;
       this.levelLabel.text = this.level;
       this.player.y = this.game.world.height;
+    }
+
+    if((this.policeCar.x > 860 || this.policeCar < -30)) {
+      this.policeCar.kill();
+    }
+
+    if (this.level > this.levelData.level_start_police_car){
+      if (Math.floor(Math.random()*100) == 0 ){
+        this.updatePoliceCar();
+      }
     }
   },
   deleteCar: function (element){
@@ -175,6 +187,14 @@ ChickenGame.GameState = {
     car.lane = numLane;
     car.scale.setTo(car.direction, 1);
     car.body.velocity.x = car.direction * this.levelData.car_type[this.levelData.cars_color[car.frame]].velocity;
+  },
+  createPoliceCar: function (){
+    this.policeCar = new ChickenGame.CarPolice(this.game, this.levelData);
+    this.game.add.existing(this.policeCar);
+  },
+  updatePoliceCar: function (){
+    this.policeCar.alive;
+    this.policeCar.setDirection ();
   }
 
 };
