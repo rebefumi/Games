@@ -15,7 +15,7 @@ ChickenGame.GameState = {
 
     //variables: level game, total lanes of the road
     this.level = 1;
-    this.totalLanes =  this.dataJson.gameState.car_lane.length
+    this.totalLanes =  this.dataJson.gameState.car_lane.length-1;
 
     //a list to control the numbers of cars in each lane
     this.laneCarList = Array.apply(0, Array(this.totalLanes)).map(Number.prototype.valueOf,0);
@@ -26,6 +26,11 @@ ChickenGame.GameState = {
 
     //When chicken get the final of the road  you must release the up button to continue
     this.repress = false;
+
+    this.lastCarCreate = 0;
+
+    this.waitForCreate = 0;
+
   },
   create: function (){
     //added background to the game
@@ -42,6 +47,7 @@ ChickenGame.GameState = {
     //initialize the timer
     this.time = this.game.time.create(this.game);
     this.time.start();
+
 
     //draw the lives on the screen
     this.lives = this.add.group();
@@ -95,13 +101,18 @@ ChickenGame.GameState = {
       this.player.frame = 3;
     }
 
+    //check for create a car
+    while (this.waitForCreate > 0 ){
+      this.waitForCreate--;
+      this.pickLane();
+    }
+
     //check if some car leave the screen, and then create a new car
     this.carsPool.forEachAlive(function(element){
       if((element.x > 860 || element.x < -30)) {
         this.deleteCar(element);
       }
     }, this);
-
     //if the chicken cross the road , up level and push the chicken on the beggining
     if (this.player.top == 0){
       this.level++;
@@ -134,18 +145,9 @@ ChickenGame.GameState = {
   },
   pickLane: function (){
     var pick = Math.floor(Math.random()* this.totalLanes);
-    if (this.laneCarList[pick] == 0){
-      this.createCar(pick);
-    }else{
-      this.carsPool.forEachAlive(function (element){
-        if (element.lane == pick){
-          car = element.cloneCar();
-          this.carsPool.add(car);
-          car.body.velocity.x = car.direction * this.levelData.car_type[this.levelData.cars_color[car.frame]].velocity;
+    //this.game.time.events.add(Phaser.Timer.SECOND, this.chooseCarFunctionCreate, this, pick);
+    this.chooseCarFunctionCreate(pick);
 
-        }
-      }, this);
-    }
   },
   runOver: function() {
     this.player.y =  this.dataJson.gameState.chicken.y;
@@ -185,7 +187,7 @@ ChickenGame.GameState = {
     var car = this.carsPool.getFirstExists(false);
 
     if(!car) {
-      car = new ChickenGame.Car(this.game, this.time.ms, this.levelData, this.dataJson.gameState.car_lane[numLane].y);
+      car = new ChickenGame.Car(this.game, this.levelData, this.dataJson.gameState.car_lane[numLane].y);
       this.carsPool.add(car);
     }else {
       var direction = car.pickDirection();
@@ -194,7 +196,6 @@ ChickenGame.GameState = {
       car.reset(car.getPositionX(direction), this.dataJson.gameState.car_lane[numLane].y);
       car.direction = direction;
       car.frame = color;
-
     }
 
     this.laneCarList[numLane]++;
@@ -210,6 +211,34 @@ ChickenGame.GameState = {
     this.policeCar.alive  = true;
 
     this.policeCar.updateCarPolice();
+  },
+  cloneCar: function (pick){
+    var carLane = undefined;
+    this.carsPool.forEachAlive(function (element) {
+      if (element.lane == pick) {
+        carLane = element;
+      }
+    }, this);
+    if (carLane) {
+      car = carLane.cloneCar();
+      this.laneCarList[pick]++;
+      car.lane = pick;
+      this.carsPool.add(car);
+      car.body.velocity.x = car.direction * this.levelData.car_type[this.levelData.cars_color[car.frame]].velocity;
+    }
+  },
+  chooseCarFunctionCreate: function (pick){
+    if (this.laneCarList[pick] == 0){
+      this.createCar(pick);
+    }else {
+      if (this.time.ms - this.lastCarCreate < 1000) {
+        this.waitForCreate++;
+      }else{
+        this.cloneCar(pick);
+      }
+
+    }
+    this.lastCarCreate = this.time.ms;
   }
 
 };
