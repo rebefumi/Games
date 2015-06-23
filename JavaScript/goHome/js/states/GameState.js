@@ -78,6 +78,7 @@ ChickenGame.GameState = {
   update: function (){
     //check if there is a collide between the chicken and the cars
     this.game.physics.arcade.overlap(this.player, this.carsPool, this.runOver, null, this);
+    this.game.physics.arcade.overlap(this.player, this.policeCar, this.runOver, null, this);
 
     //move the chicken when the arrows are pressed
     if (this.cursors.up.isUp){
