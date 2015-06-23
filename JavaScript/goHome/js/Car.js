@@ -1,9 +1,8 @@
 var ChickenGame = ChickenGame || {};
 
 
-ChickenGame.Car = function (game, time, levelData, lane){
+ChickenGame.Car = function (game, levelData, lane){
     this.game = game;
-    this.time = time;
     this.carJson = levelData;
     this.direction = 1;
 
@@ -24,7 +23,7 @@ ChickenGame.Car.prototype.prepare = function (lane){
 }
 
 ChickenGame.Car.prototype.cloneCar = function (){
-    var car = new ChickenGame.Car(this.game, this.time, this.carJson, this.y);
+    var car = new ChickenGame.Car(this.game, this.carJson, this.y);
     car.direction = this.direction;
     car.frame = this.frame;
     car.x = this.getPositionX(car.direction);
