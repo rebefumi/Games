@@ -19,7 +19,7 @@ ChickenGame.Car.prototype.prepare = function (lane){
     var xPosition = this.getPositionX (direction);
     Phaser.Sprite.call(this, this.game, xPosition, lane, 'car', color);
     this.direction = direction;
-    this.anchor.setTo(1,0);
+    this.anchor.setTo(0.5);
 }
 
 ChickenGame.Car.prototype.cloneCar = function (){
