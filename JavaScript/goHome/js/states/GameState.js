@@ -181,7 +181,7 @@ ChickenGame.GameState = {
     this.livesEmpty.children[this.numLives].visible = true;
   },
   gameOver: function (){
-    this.game.state.start('GameOverState', true, false, "7");
+    this.game.state.start('GameOverState', true, false, this.level);
   },
   createCar: function (numLane){
     var car = this.carsPool.getFirstExists(false);
@@ -240,5 +240,4 @@ ChickenGame.GameState = {
     }
     this.lastCarCreate = this.time.ms;
   }
-
 };
