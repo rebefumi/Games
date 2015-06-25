@@ -9,4 +9,4 @@ skylander.HomeState = {
         }, this);
     }
 
-};
+};    

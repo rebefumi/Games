@@ -1,11 +1,13 @@
 var skylander = skylander || {}
 
 var gameConstant = {
-    width: 480,
-    height: 360
+    width: 700,
+    height: 350
 }
 
-skylander.game = new Phaser.Game(gameConstant.width, gameConstant.height, Phaser.AUTO);
+skylander.dim = skylander.getGameLandscapeDimensions(gameConstant.width, gameConstant.height);
+
+skylander.game = new Phaser.Game(skylander.dim.w, skylander.dim.h, Phaser.AUTO);
 
 skylander.game.state.add('HomeState', skylander.HomeState);
 skylander.game.state.add('PreloadState', skylander.PreloadState);
