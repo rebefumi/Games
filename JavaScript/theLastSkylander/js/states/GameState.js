@@ -60,12 +60,34 @@ skylander.GameState = {
 
     this.backgroundLayer.resizeWorld();
 
-    this.player = this.add.sprite(10, this.game.world.height - 50, 'player', 0);
+    this.lives = Array.apply(undefined, Array (this.numLives));
+    this.lives = this.lives.map(function (x, i) {
+      var live  = this.add.sprite(this.gameData.lives_position_x[i], this.gameData.lives_position_y, 'heart');
+      live.fixedToCamera = true;
+      return live;
+    }, this);
+
+    var playerList = this.findObjectsByTag('player', this.map, 'Objects');
+    this.player = this.add.sprite(playerList[0].x, playerList[0].y, 'player', 0);
     this.player.anchor.setTo(0.5);
     this.player.animations.add('walking', [1, 2, 3, 4, 5, 6, 7, 8], 10, true);
     this.game.physics.arcade.enable(this.player);
     this.player.ownProperties = {isMovingLeft: false, mustJump: false};
     this.player.body.collideWorldBounds = true;
+
+    var goalList = this.findObjectsByTag('goal', this.map, 'Objects');
+    this.goal = this.add.sprite(goalList[0].x, goalList[0].y, 'goal');
+    this.game.physics.arcade.enable(this.goal);
+    this.goal.body.allowGravity = false;
+    this.goal.nextLevel = goalList[0].properties.nextLevel;
+
+    this.enemies = this.add.group();
+
+    var enemyList = this.findObjectsByTag('enemy', this.map, 'Objects');
+    enemyList.forEach(function (element){
+      enemy = new skylander.Enemy (this.game, element.x, element.y, element.properties.key, parseInt(element.properties.velocity), element.properties.animation, this.map);
+      this.enemies.add(enemy);
+    },this);
 
     this.game.camera.follow(this.player);
   },
@@ -123,6 +145,17 @@ skylander.GameState = {
     this.rightArrow.events.onInputOut.add(function () {
       this.player.ownProperties.isMovingRight = false;
     }, this);
+  },
+  findObjectsByTag: function (tag, tilemap, layer){
+    var result = [];
+
+    tilemap.objects[layer].forEach(function (element){
+      if(element.properties.tag == tag){
+        element.y -= tilemap.tileHeight;
+        result.push(element);
+      }
+    },this);
+    return result;
   }
 };
 
