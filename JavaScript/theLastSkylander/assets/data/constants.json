@@ -1,5 +1,8 @@
 {
   "RUNNING_SPEED": 180,
   "JUMPING_SPEED": 500,
-  "GRAVITY": 1000
+  "BOUNCED_SPEED": 150,
+  "GRAVITY": 1000,
+  "lives_position_x":[10, 40, 70, 100],
+  "lives_position_y": 10
 }
