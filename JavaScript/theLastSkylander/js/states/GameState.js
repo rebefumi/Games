@@ -1,7 +1,8 @@
 var skylander = skylander || {}
 
 skylander.GameState = {
-  init: function () {
+  init: function (level) {
+    this.currentLevel = level || 'level1';
     this.gameData = JSON.parse(this.game.cache.getText('constants'));
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -9,9 +10,10 @@ skylander.GameState = {
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
+    this.numLives = 4;
+
   },
   create: function () {
-    console.log();
     this.game.stage.backgroundColor = "#000";
 
     this.loadLevel();
@@ -44,12 +46,17 @@ skylander.GameState = {
       this.player.body.velocity.y = -this.gameData.JUMPING_SPEED;
       this.player.ownProperties.mustJump = false;
     }
+
+    if (this.player.bottom === this.game.world.height){
+      this.gameOver();
+    }
   },
   loadLevel: function () {
-    this.map = this.add.tilemap('level1');
+    this.map = this.add.tilemap(this.currentLevel);
 
     this.map.addTilesetImage('tiles_spritesheet', 'tilesheet');
-    this.map.addTilesetImage('tallShroom_red', 'decoration');
+    if (this.currentLevel == 'level1')
+      this.map.addTilesetImage('tallShroom_red', 'decoration');
 
     this.backgroundLayer = this.map.createLayer('BackgroundLayer');
     this.collisionLayer = this.map.createLayer ('CollisionLayer');
@@ -156,6 +163,9 @@ skylander.GameState = {
       }
     },this);
     return result;
+  },
+  changeLevel: function (player, goal){
+    this.game.state.start('PreloadState', true, false, goal.nextLevel);
   }
 };
 
