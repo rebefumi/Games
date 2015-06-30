@@ -30,139 +30,13 @@
                 {
                  "gid":146,
                  "height":35,
-                 "id":2,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":35,
-                 "x":937,
-                 "y":109
-                }, 
-                {
-                 "gid":146,
-                 "height":35,
-                 "id":3,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":35,
-                 "x":807,
-                 "y":103
-                }, 
-                {
-                 "gid":146,
-                 "height":35,
-                 "id":4,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":35,
-                 "x":705,
-                 "y":103
-                }, 
-                {
-                 "gid":146,
-                 "height":35,
-                 "id":5,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":35,
-                 "x":389,
-                 "y":70.3333333333333
-                }, 
-                {
-                 "gid":146,
-                 "height":35,
-                 "id":6,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":35,
-                 "x":487,
-                 "y":177
-                }, 
-                {
-                 "gid":146,
-                 "height":35,
-                 "id":7,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":35,
-                 "x":245,
-                 "y":245
-                }, 
-                {
-                 "gid":146,
-                 "height":35,
-                 "id":8,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":35,
-                 "x":219.666666666667,
-                 "y":104.333333333333
-                }, 
-                {
-                 "gid":146,
-                 "height":35,
-                 "id":9,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":35,
-                 "x":106.333333333333,
-                 "y":140.333333333333
-                }, 
-                {
-                 "gid":146,
-                 "height":35,
                  "id":10,
                  "name":"",
                  "properties":
                     {
-
+                     "key":"frog",
+                     "tag":"enemy",
+                     "velocity":"100"
                     },
                  "rotation":0,
                  "type":"",
@@ -172,29 +46,13 @@
                  "y":313
                 }, 
                 {
-                 "gid":146,
-                 "height":35,
-                 "id":11,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":35,
-                 "x":37,
-                 "y":209
-                }, 
-                {
                  "gid":147,
                  "height":35,
                  "id":12,
                  "name":"",
                  "properties":
                     {
-
+                     "tag":"player"
                     },
                  "rotation":0,
                  "type":"",
@@ -210,7 +68,8 @@
                  "name":"",
                  "properties":
                     {
-
+                     "nextLevel":"level2",
+                     "tag":"goal"
                     },
                  "rotation":0,
                  "type":"",
@@ -218,6 +77,171 @@
                  "width":35,
                  "x":1367,
                  "y":177
+                }, 
+                {
+                 "gid":146,
+                 "height":35,
+                 "id":14,
+                 "name":"",
+                 "properties":
+                    {
+                     "key":"frog",
+                     "tag":"enemy",
+                     "velocity":"100"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":35,
+                 "x":286.5,
+                 "y":245.167
+                }, 
+                {
+                 "gid":146,
+                 "height":35,
+                 "id":15,
+                 "name":"",
+                 "properties":
+                    {
+                     "key":"frog",
+                     "tag":"enemy",
+                     "velocity":"100"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":35,
+                 "x":478.5,
+                 "y":175.833
+                }, 
+                {
+                 "gid":146,
+                 "height":35,
+                 "id":16,
+                 "name":"",
+                 "properties":
+                    {
+                     "animation":"plantAttack",
+                     "key":"plant",
+                     "tag":"enemy",
+                     "velocity":"0"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":35,
+                 "x":934.5,
+                 "y":105.167
+                }, 
+                {
+                 "gid":146,
+                 "height":35,
+                 "id":17,
+                 "name":"",
+                 "properties":
+                    {
+                     "animation":"plantAttack",
+                     "key":"plant",
+                     "tag":"enemy",
+                     "velocity":"0"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":35,
+                 "x":793.167,
+                 "y":103.833
+                }, 
+                {
+                 "gid":146,
+                 "height":35,
+                 "id":18,
+                 "name":"",
+                 "properties":
+                    {
+                     "animation":"plantAttack",
+                     "key":"plant",
+                     "tag":"enemy",
+                     "velocity":"0"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":35,
+                 "x":690.5,
+                 "y":103.833
+                }, 
+                {
+                 "gid":146,
+                 "height":35,
+                 "id":19,
+                 "name":"",
+                 "properties":
+                    {
+                     "key":"frog",
+                     "tag":"enemy",
+                     "velocity":"50"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":35,
+                 "x":378.5,
+                 "y":71.8333
+                }, 
+                {
+                 "gid":146,
+                 "height":35,
+                 "id":20,
+                 "name":"",
+                 "properties":
+                    {
+                     "key":"frog",
+                     "tag":"enemy",
+                     "velocity":"40"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":35,
+                 "x":229.167,
+                 "y":103.833
+                }, 
+                {
+                 "gid":146,
+                 "height":35,
+                 "id":21,
+                 "name":"",
+                 "properties":
+                    {
+                     "key":"frog",
+                     "tag":"enemy",
+                     "velocity":"20"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":35,
+                 "x":121.167,
+                 "y":139.833
+                }, 
+                {
+                 "gid":146,
+                 "height":35,
+                 "id":22,
+                 "name":"",
+                 "properties":
+                    {
+                     "key":"frog",
+                     "tag":"enemy",
+                     "velocity":"30"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":35,
+                 "x":31.8333,
+                 "y":210.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -226,7 +250,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":14,
+ "nextobjectid":25,
  "orientation":"orthogonal",
  "properties":
     {
@@ -237,7 +261,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"..\/Desarrollo\/Zenva\/M7\/M7-Tile-based-Platformer\/01-basic-platformer\/assets\/images\/tiles_spritesheet.png",
+         "image":"..\/..\/..\/M7-Tile-based-Platformer\/01-basic-platformer\/assets\/images\/tiles_spritesheet.png",
          "imageheight":468,
          "imagewidth":457,
          "margin":0,
@@ -252,7 +276,7 @@
         }, 
         {
          "firstgid":157,
-         "image":"tallShroom_red.png",
+         "image":"..\/..\/..\/..\/..\/..\/Desktop\/tallShroom_red.png",
          "imageheight":35,
          "imagewidth":35,
          "margin":0,
@@ -263,6 +287,13 @@
             },
          "spacing":0,
          "tileheight":35,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "nextLevel":"level"
+                }
+            },
          "tilewidth":35
         }],
  "tilewidth":35,

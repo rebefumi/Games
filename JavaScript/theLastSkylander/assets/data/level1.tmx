@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="12" tilewidth="35" tileheight="35" nextobjectid="14">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="12" tilewidth="35" tileheight="35" nextobjectid="25">
  <tileset firstgid="1" name="tiles_spritesheet" tilewidth="35" tileheight="35" spacing="1">
   <image source="../Desarrollo/Zenva/M7/M7-Tile-based-Platformer/01-basic-platformer/assets/images/tiles_spritesheet.png" width="457" height="468"/>
  </tileset>
  <tileset firstgid="157" name="tallShroom_red" tilewidth="35" tileheight="35">
   <image source="tallShroom_red.png" width="35" height="35"/>
+  <tile id="0">
+   <properties>
+    <property name="nextLevel" value="level"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="BackgroundLayer" width="40" height="12">
   <data>
@@ -975,17 +980,76 @@
   </data>
  </layer>
  <objectgroup name="Objects">
-  <object id="2" gid="146" x="937" y="109" width="35" height="35"/>
-  <object id="3" gid="146" x="807" y="103" width="35" height="35"/>
-  <object id="4" gid="146" x="705" y="103" width="35" height="35"/>
-  <object id="5" gid="146" x="389" y="70.3333" width="35" height="35"/>
-  <object id="6" gid="146" x="487" y="177" width="35" height="35"/>
-  <object id="7" gid="146" x="245" y="245" width="35" height="35"/>
-  <object id="8" gid="146" x="219.667" y="104.333" width="35" height="35"/>
-  <object id="9" gid="146" x="106.333" y="140.333" width="35" height="35"/>
-  <object id="10" gid="146" x="141" y="313" width="35" height="35"/>
-  <object id="11" gid="146" x="37" y="209" width="35" height="35"/>
-  <object id="12" gid="147" x="1" y="385" width="35" height="35"/>
-  <object id="13" gid="148" x="1367" y="177" width="35" height="35"/>
+  <object id="10" gid="146" x="141" y="313" width="35" height="35">
+   <properties>
+    <property name="tag" value="enemy"/>
+    <property name="velocity" value="100"/>
+   </properties>
+  </object>
+  <object id="12" gid="147" x="1" y="385" width="35" height="35">
+   <properties>
+    <property name="tag" value="player"/>
+   </properties>
+  </object>
+  <object id="13" gid="148" x="1367" y="177" width="35" height="35">
+   <properties>
+    <property name="nextLevel" value="level2"/>
+    <property name="tag" value="goal"/>
+   </properties>
+  </object>
+  <object id="14" gid="146" x="286.5" y="245.167" width="35" height="35">
+   <properties>
+    <property name="tag" value="enemy"/>
+    <property name="velocity" value="100"/>
+   </properties>
+  </object>
+  <object id="15" gid="146" x="478.5" y="175.833" width="35" height="35">
+   <properties>
+    <property name="tag" value="enemy"/>
+    <property name="velocity" value="100"/>
+   </properties>
+  </object>
+  <object id="16" gid="146" x="934.5" y="105.167" width="35" height="35">
+   <properties>
+    <property name="tag" value="enemy"/>
+    <property name="velocity" value="100"/>
+   </properties>
+  </object>
+  <object id="17" gid="146" x="793.167" y="103.833" width="35" height="35">
+   <properties>
+    <property name="tag" value="enemy"/>
+    <property name="velocity" value="100"/>
+   </properties>
+  </object>
+  <object id="18" gid="146" x="690.5" y="103.833" width="35" height="35">
+   <properties>
+    <property name="tag" value="enemy"/>
+    <property name="velocity" value="100"/>
+   </properties>
+  </object>
+  <object id="19" gid="146" x="378.5" y="71.8333" width="35" height="35">
+   <properties>
+    <property name="tag" value="enemy"/>
+    <property name="velocity" value="100"/>
+   </properties>
+  </object>
+  <object id="20" gid="146" x="229.167" y="103.833" width="35" height="35">
+   <properties>
+    <property name="tag" value="enemy"/>
+    <property name="velocity" value="100"/>
+   </properties>
+  </object>
+  <object id="21" gid="146" x="121.167" y="139.833" width="35" height="35">
+   <properties>
+    <property name="tag" value="enemy"/>
+    <property name="velocity" value="100"/>
+   </properties>
+  </object>
+  <object id="22" gid="146" x="31.8333" y="210.5" width="35" height="35">
+   <properties>
+    <property name="tag" value="enemy"/>
+    <property name="velocity" value="100"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
