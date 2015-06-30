@@ -24,6 +24,10 @@ skylander.GameState = {
   },
   update: function () {
     this.game.physics.arcade.collide(this.player, this.collisionLayer);
+    this.game.physics.arcade.collide(this.enemies, this.collisionLayer);
+
+    this.game.physics.arcade.overlap(this.player, this.goal, this.changeLevel, null, this);
+    this.game.physics.arcade.collide(this.player, this.enemies, this.killEnemy, null, this);
 
     this.player.body.velocity.x = 0;
 
@@ -166,6 +170,26 @@ skylander.GameState = {
   },
   changeLevel: function (player, goal){
     this.game.state.start('PreloadState', true, false, goal.nextLevel);
+  },
+  killEnemy: function (player, enemy){
+    if (enemy.body.touching.up){
+      enemy.kill();
+      player.body.velocity.y = - this.gameData.BOUNCED_SPEED;
+    }else{
+      this.loseLive();
+    }
+  },
+  loseLive: function (){
+    this.numLives --;
+    if (this.numLives === 0){
+      this.gameOver();
+    }else {
+      this.lives[this.numLives].alpha = 0.5;
+    }
+  }
+  ,
+  gameOver: function (){
+    this.game.state.start('GameState', true, false, this.currentLevel);
   }
 };
 
