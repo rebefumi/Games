@@ -16,12 +16,13 @@ skylander.PreloadState = {
             //load json
             this.load.text('constants', 'assets/data/constants.json');
 
+            this.load.image('text', 'assets/images/skylander_text.png');
             this.load.image('goal', 'assets/images/goal.png');
             this.load.image('frog', 'assets/images/frog.png');
 
             this.load.image('heart', 'assets/images/heart.png');
 
-            this.load.spritesheet('player', 'assets/images/player_spritesheet.png', 23, 40, 9, 0, 29);
+            this.load.spritesheet('player', 'assets/images/player_spritesheet.png', 23, 40, 8, 0, 0);
             this.load.spritesheet('plant', 'assets/images/enemy.png', 50, 58, 4, 0, 1);
             this.load.image('arrowButton', 'assets/images/arrowButton.png');
             this.load.image('actionButton', 'assets/images/actionButton.png');
