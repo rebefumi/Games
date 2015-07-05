@@ -1,0 +1,31 @@
+[
+  {
+    "btnAsset": "sunflowerButton",
+    "cost": 75,
+    "plantAsset": "sunflower",
+    "health": 4,
+    "role": "isProducer"
+  },
+  {
+    "btnAsset": "sunflowerButton",
+    "cost": 125,
+    "plantAsset": "sunflower",
+    "health": 20,
+    "role": "isProducer"
+  },
+  {
+    "btnAsset": "plantButton",
+    "cost": 100,
+    "plantAsset": "plant",
+    "health": 10,
+    "role": "isShooter",
+    "animationFrames": [1, 2, 1, 0]
+  },
+  {
+    "btnAsset": "chilliButton",
+    "cost": 200,
+    "plantAsset": "chilli",
+    "health": 25,
+    "role": "isShooter"
+  }
+]
