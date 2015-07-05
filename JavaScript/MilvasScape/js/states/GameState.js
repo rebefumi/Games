@@ -12,6 +12,9 @@ RPG.GameState = {
     this.game.stage.backgroundColor = "#000";
 
     this.levelData = JSON.parse(this.game.cache.getText('level'));
+
+    this.player = this.add.sprite(100, 200, 'player', 91);
+
   },
   update: function (){
 

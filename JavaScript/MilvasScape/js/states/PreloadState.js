@@ -11,7 +11,10 @@ RPG.PreloadState = {
 
         //load all images
         this.load.image('backHome', 'assets/images/backHome.jpg');
-        this.load.image('title', 'assets/images/title.png')
+        this.load.image('title', 'assets/images/title.png');
+
+        this.load.spritesheet('player', 'assets/images/player.png', 64, 64, 273);
+
         //load json
         this.load.text('level', 'assets/data/level.json');
     },
