@@ -1,11 +1,13 @@
 var RPG = RPG || {}
 
 var gameConstant = {
-    width: 480,
-    height: 320
+    width: 440,
+    height: 400
 }
 
-RPG.game = new Phaser.Game(gameConstant.width, gameConstant.height, Phaser.AUTO);
+RPG.dim = RPG.getGameLandscapeDimensions(gameConstant.width, gameConstant.height);
+
+RPG.game = new Phaser.Game(RPG.dim.w, RPG.dim.h, Phaser.CANVAS);
 
 RPG.game.state.add('GameState', RPG.GameState);
 RPG.game.state.add('HomeState', RPG.HomeState);
