@@ -10,6 +10,7 @@ RPG.GameState = {
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
     this.gameData = JSON.parse(this.game.cache.getText('constants'));
+    this.itemData = JSON.parse(this.game.cache.getText('itemData'));
   },
   create: function (){
     this.game.VirtualPad = this.game.plugins.add(Phaser.Plugin.VirtualPad);
@@ -36,6 +37,12 @@ RPG.GameState = {
 
     this.initGUI();
 
+    this.items = this.add.group();
+    var item = "";
+    this.itemData.items.forEach (function (element){
+      item = new RPG.Item(this, element.positionX,  element.positionY, element.key, element.parameters);
+      this.items.add(item);
+    }, this);
   },
   update: function (){
 

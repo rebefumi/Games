@@ -17,6 +17,7 @@ RPG.PreloadState = {
             this.load.spritesheet('player', 'assets/images/player.png', 64, 64, 273);
 
             this.load.text('constants', 'assets/data/constants.json');
+            this.load.text('itemData', 'assets/data/item.json');
 
             //load game assets
             this.load.image('sword', 'assets/images/attack-icon.png');
@@ -35,8 +36,6 @@ RPG.PreloadState = {
             this.load.image('sword', 'assets/images/attack-icon.png');
 
             this.load.image('tilesheet', 'assets/images/terrains.png');
-
-
         }
         //load map
         this.load.tilemap(this.currentLevel, 'assets/data/' + this.currentLevel + '.json', null, Phaser.Tilemap.TILED_JSON);

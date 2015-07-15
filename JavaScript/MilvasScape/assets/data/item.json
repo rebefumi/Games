@@ -1,0 +1,33 @@
+{"items" : [
+   {
+      "positionX": 100,
+      "positionY": 150,
+      "key": "potion",
+      "parameters": {"health": 10}
+    },
+    {
+      "positionX": 100,
+      "positionY": 180,
+      "key": "sword",
+      "parameters": {"attack": 2}
+    },
+    {
+      "positionX": 100,
+      "positionY": 210,
+      "key": "shield",
+      "parameters": {"defense": 2}
+    },
+    {
+      "positionX": 100,
+      "positionY": 240,
+      "key": "chest",
+      "parameters": {"gold": 100}
+    },
+    {
+      "positionX": 100,
+      "positionY": 270,
+      "key": "scroll",
+      "parameters": {"isQuest": true, "questCode": "magic-scroll"}
+    }
+  ]
+}
