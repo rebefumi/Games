@@ -7,14 +7,13 @@ RPG.GameState = {
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.game.physics.arcade.gravity.y = 0;
 
-    //TODO: Drop this line
-    this.game.world.setBounds (0,0, gameConstant.world_width, gameConstant.world_height);
-
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
     this.gameData = JSON.parse(this.game.cache.getText('constants'));
   },
   create: function (){
+    this.game.VirtualPad = this.game.plugins.add(Phaser.Plugin.VirtualPad);
+
     this.game.stage.backgroundColor = this.gameData.background_color;
 
     this.map = this.add.tilemap(this.currentLevel);
@@ -35,26 +34,12 @@ RPG.GameState = {
 
     this.game.camera.follow(this.player);
 
+    this.initGUI();
+
   },
   update: function (){
-    this.player.body.velocity.x = 0;
-    this.player.body.velocity.y = 0;
-    if (this.cursors.left.isDown) {
-      this.player.body.velocity.x = -this.gameData.player_speed;
-      this.player.play('walk_left');
-    }else if (this.cursors.right.isDown) {
-      this.player.body.velocity.x = this.gameData.player_speed;
-      this.player.play('walk_right');
-    }else if (this.cursors.up.isDown) {
-      this.player.body.velocity.y = -this.gameData.player_speed;
-      this.player.play('walk_up');
-    }else if (this.cursors.down.isDown) {
-      this.player.body.velocity.y = this.gameData.player_speed;
-      this.player.play('walk_down');
-    }else {
-      this.player.animations.stop();
-      this.player.frame = this.gameData.initial_frame;
-    }
+
+    this.cursorMovement();
 
   },
   gameOver: function() {
@@ -62,6 +47,52 @@ RPG.GameState = {
   },
   render: function (){
      this.game.debug.body(this.player);
+  },
+  cursorMovement: function (){
+    this.player.body.velocity.x = 0;
+    this.player.body.velocity.y = 0;
+
+    if (this.cursors.left.isDown || this.player.btnsPressed.left || this.player.btnsPressed.upleft  || this.player.btnsPressed.downleft) {
+      this.player.body.velocity.x = -this.gameData.player_speed;
+      this.player.play('walk_left');
+    }else if (this.cursors.right.isDown || this.player.btnsPressed.right || this.player.btnsPressed.upright  || this.player.btnsPressed.downright) {
+      this.player.body.velocity.x = this.gameData.player_speed;
+      this.player.play('walk_right');
+    }
+
+    if (this.cursors.up.isDown || this.player.btnsPressed.up || this.player.btnsPressed.upright  || this.player.btnsPressed.upleft) {
+      this.player.body.velocity.y = -this.gameData.player_speed;
+      if (this.cursors.up.isDown || this.player.btnsPressed.up ) {
+        this.player.play('walk_up');
+      }
+    }else if (this.cursors.down.isDown || this.player.btnsPressed.down || this.player.btnsPressed.downright  || this.player.btnsPressed.downleft) {
+      this.player.body.velocity.y = this.gameData.player_speed;
+      if (this.cursors.down.isDown || this.player.btnsPressed.down ) {
+        this.player.play('walk_down');
+      }
+    }
+
+    if(this.game.input.activePointer.isUp){
+      this.game.VirtualPad.stopMovement();
+    }
+
+    if (this.player.body.velocity.x == 0 && this.player.body.velocity.y == 0){
+      this.player.animations.stop();
+      this.player.frame = this.gameData.initial_frame;
+    }
+  },
+  initGUI: function() {
+    this.game.VirtualPad.setup(this.player, {
+      left: true,
+      right: true,
+      up: true,
+      down: true,
+      upleft: true,
+      downleft: true,
+      upright: true,
+      downright: true,
+      action: false
+    })
   }
 
 };
