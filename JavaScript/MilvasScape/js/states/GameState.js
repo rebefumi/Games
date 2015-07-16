@@ -60,7 +60,9 @@ RPG.GameState = {
 
         this.game.physics.arcade.collide(this.player, this.enemies, this.attack, null, this);
 
-        this.cursorMovement();
+        if (!this.uiBlocked){
+            this.cursorMovement();
+        }
 
     },
     gameOver: function () {
@@ -141,6 +143,39 @@ RPG.GameState = {
         this.defenseLabel.fixedToCamera = true;
 
         this.refreshStats();
+
+        this.questIcon = new RPG.Icon(this, this.game.width - 30, 10, 'quest');
+        this.add.existing(this.questIcon);
+
+        //quest button
+        this.questIcon = this.add.sprite(this.game.width - 30, 10, 'quest');
+        this.questIcon.fixedToCamera = true;
+
+        //init quests info panel
+        this.overlay = this.add.bitmapData(this.game.width, this.game.height);
+        this.overlay.ctx.fillStyle = '#000';
+        this.overlay.ctx.fillRect(0, 0, this.game.width, this.game.height);
+
+        this.questsPanelGroup = this.add.group();
+        this.questsPanelGroup.y = this.game.height;
+        this.questsPanel = new Phaser.Sprite(this.game, 0, 0, this.overlay);
+        this.questsPanel.alpha = 0.8;
+        this.questsPanel.fixedToCamera = true;
+        this.questsPanelGroup.add(this.questsPanel);
+
+        //content of the panel
+        style = {font: '14px Arial', fill: '#fff'};
+        this.questInfo = new Phaser.Text(this.game, 50, 50, '', style);
+        this.questInfo.fixedToCamera = true;
+        this.questsPanelGroup.add(this.questInfo);
+
+        //show quests when you touch the quests icon
+        this.questIcon.inputEnabled = true;
+        this.questIcon.events.onInputDown.add(this.showQuests, this);
+
+        //hide quest panel when touched
+        this.questsPanel.inputEnabled = true;
+        this.questsPanel.events.onInputDown.add(this.hideQuests, this);
     },
     refreshStats: function () {
         this.goldLabel.text = this.player.data.gold;
@@ -191,6 +226,30 @@ RPG.GameState = {
             console.log(player.data.health);
             this.gameOver();
         }
+    },
+    showQuests: function() {
+        this.uiBlocked = true;
+
+        var showPanelTween = this.add.tween(this.questsPanelGroup);
+        showPanelTween.to({y: 0}, 150);
+
+        showPanelTween.onComplete.add(function(){
+            var questsText = 'QUESTS\n';
+
+            this.player.data.quests.forEach(function(quest){
+                questsText += quest.name + (quest.isCompleted ? '- DONE' : '') + '\n';
+            }, this);
+
+            this.questInfo.text = questsText;
+        }, this);
+
+        showPanelTween.start();
+    },
+    hideQuests: function() {
+        this.questsPanelGroup.y = this.game.height;
+        this.questInfo.text = '';
+
+        this.uiBlocked = false;
     }
 
 };
