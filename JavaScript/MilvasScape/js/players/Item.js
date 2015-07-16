@@ -5,7 +5,7 @@ RPG.Item = function (state, x, y, key, data){
 
     this.state = state;
     this.game = state.game;
-    this.data = data;
+    this.data = Object.create(data);
     this.gameData = state.gameData;
 
     this.game.physics.arcade.enable(this);

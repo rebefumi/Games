@@ -5,7 +5,7 @@ RPG.Player = function (state, x, y, data){
 
     this.state = state;
     this.game = state.game;
-    this.data = data;
+    this.data = Object.create(data);
     this.gameData = state.gameData;
     this.anchor.setTo(0.5);
 
@@ -14,6 +14,10 @@ RPG.Player = function (state, x, y, data){
     this.animations.add('walk_up', this.gameData.animation_walk_up,  this.gameData.frames, true);
     this.animations.add('walk_left', this.gameData.animation_walk_left,  this.gameData.frames, true);
     this.animations.add('walk_down', this.gameData.animation_walk_down,  this.gameData.frames, true);
+
+    this.healthBar = new RPG.HealthBar(state, this.x, this.y, 'bar', this.data.health);
+    this.game.add.existing(this.healthBar);
+
 
     this.game.physics.arcade.enable(this);
     this.body.setSize(this.gameData.player_body.x, this.gameData.player_body.y, null, (this.height-this.gameData.player_body.y)/6);
@@ -26,6 +30,9 @@ RPG.Player.prototype.constructor = RPG.Player;
 RPG.Player.prototype.collectItem = function(item) {
     this.addItemData(item);
     this.state.refreshStats();
+    if (item.data.health) {
+        this.healthBar.refreshHealthbar(this.data.health)
+    }
     item.kill();
 };
 
@@ -53,3 +60,11 @@ RPG.Player.prototype.checkQuestCompletion = function(item) {
         i++;
     }
 };
+
+RPG.Player.prototype.update = function() {
+    this.healthBar.x = this.x;
+    this.healthBar.y = this.y - 15;
+
+    this.healthBar.body.velocity = this.body.velocity;
+};
+

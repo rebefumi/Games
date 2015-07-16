@@ -64,7 +64,7 @@ RPG.GameState = {
 
     },
     gameOver: function () {
-        this.game.state.start('GameOverState', true, false, this.currentLevel);
+        this.game.state.start('GameState', true, false, this.currentLevel);
     },
     render: function () {
         this.game.debug.body(this.player);
@@ -184,6 +184,12 @@ RPG.GameState = {
         }
         if(player.body.touching.right) {
             player.x -= 20;
+        }
+
+
+        if(player.data.health <= 0) {
+            console.log(player.data.health);
+            this.gameOver();
         }
     }
 

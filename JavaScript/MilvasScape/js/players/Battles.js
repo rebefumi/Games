@@ -7,7 +7,9 @@ RPG.Battle = function(game) {
 RPG.Battle.prototype.attack = function(attacker, attacked) {
     var damage = Math.max(0, attacker.data.attack * Math.random() - attacked.data.defense * Math.random());
 
+
     attacked.data.health -= damage;
+    attacked.healthBar.refreshHealthbar(attacked.data.health);
 
     var attackedTween = this.game.add.tween(attacked);
     attackedTween.to({tint: 0xFF0000}, 200);

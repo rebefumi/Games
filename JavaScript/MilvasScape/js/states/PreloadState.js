@@ -35,6 +35,8 @@ RPG.PreloadState = {
             this.load.image('skeleton', 'assets/images/swordskeleton.png');
             this.load.image('sword', 'assets/images/attack-icon.png');
 
+            this.load.image('bar', 'assets/images/bar-health.png');
+
             this.load.image('tilesheet', 'assets/images/terrains.png');
         }
         //load map
