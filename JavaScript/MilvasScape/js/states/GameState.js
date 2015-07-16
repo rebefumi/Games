@@ -46,7 +46,11 @@ RPG.GameState = {
             this.items.add(item);
         }, this);*/
 
-        this.loadItems();
+        this.loadObjects('item', 'objectsLayer', RPG.Item);
+
+        this.enemies = this.add.group();
+        this.loadObjects('enemy', 'objectsLayer', RPG.Enemy);
+
     },
     update: function () {
         this.game.physics.arcade.collide(this.player, this.collisionLayer);
@@ -153,12 +157,12 @@ RPG.GameState = {
 
     return result;
 },
-    loadItems: function(){
-        var elementsArr = this.findObjectsByType('item', this.map, 'objectsLayer');
+    loadObjects: function(type, layer, fun){
+        var elementsArr = this.findObjectsByType(type, this.map, layer);
         var elementObj;
 
         elementsArr.forEach(function(element){
-            elementObj = new RPG.Item(this, element.x, element.y, element.properties.asset, element.properties);
+            elementObj = new fun(this, element.x, element.y, element.properties.asset, element.properties);
             this.items.add(elementObj);
         }, this);
     }
