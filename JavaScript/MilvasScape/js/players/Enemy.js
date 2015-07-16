@@ -13,6 +13,7 @@ RPG.Enemy = function(state, x, y, key, data) {
   this.data.health = +this.data.health;
 
   this.game.physics.arcade.enable(this);
+  this.body.immovable = true;
 };
 
 RPG.Enemy.prototype = Object.create(Phaser.Sprite.prototype);

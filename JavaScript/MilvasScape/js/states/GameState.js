@@ -46,16 +46,19 @@ RPG.GameState = {
             this.items.add(item);
         }, this);*/
 
-        this.loadObjects('item', 'objectsLayer', RPG.Item);
+        this.loadObjects('item', 'objectsLayer', RPG.Item, this.items);
 
         this.enemies = this.add.group();
-        this.loadObjects('enemy', 'objectsLayer', RPG.Enemy);
+        this.loadObjects('enemy', 'objectsLayer', RPG.Enemy, this.enemies);
 
+        this.battle = new RPG.Battle(this.game);
     },
     update: function () {
         this.game.physics.arcade.collide(this.player, this.collisionLayer);
 
         this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
+
+        this.game.physics.arcade.collide(this.player, this.enemies, this.attack, null, this);
 
         this.cursorMovement();
 
@@ -145,26 +148,43 @@ RPG.GameState = {
         this.defenseLabel.text = this.player.data.defense;
     },
     findObjectsByType: function(targetType, tilemap, layer){
-    var result = [];
+        var result = [];
 
-    tilemap.objects[layer].forEach(function(element){
-        if(element.properties.type == targetType) {
-            element.y -= tilemap.tileHeight/2;
-            element.x += tilemap.tileHeight/2;
-            result.push(element);
-        }
-    }, this);
+        tilemap.objects[layer].forEach(function(element){
+            if(element.properties.type == targetType) {
+                element.y -= tilemap.tileHeight/2;
+                element.x += tilemap.tileHeight/2;
+                result.push(element);
+            }
+        }, this);
 
-    return result;
-},
-    loadObjects: function(type, layer, fun){
+        return result;
+    },
+    loadObjects: function(type, layer, fun, group){
         var elementsArr = this.findObjectsByType(type, this.map, layer);
         var elementObj;
 
         elementsArr.forEach(function(element){
             elementObj = new fun(this, element.x, element.y, element.properties.asset, element.properties);
-            this.items.add(elementObj);
+            group.add(elementObj);
         }, this);
+    },
+    attack: function(player, enemy) {
+        this.battle.attack(player, enemy);
+        this.battle.attack(enemy, player);
+
+        if(player.body.touching.up) {
+            player.y += 20;
+        }
+        if(player.body.touching.down) {
+            player.y -= 20;
+        }
+        if(player.body.touching.left) {
+            player.x += 20;
+        }
+        if(player.body.touching.right) {
+            player.x -= 20;
+        }
     }
 
 };
