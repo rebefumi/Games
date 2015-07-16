@@ -23,3 +23,18 @@ RPG.Player = function (state, x, y, data){
 RPG.Player.prototype = Object.create(Phaser.Sprite.prototype);
 RPG.Player.prototype.constructor = RPG.Player;
 
+RPG.Player.prototype.collectItem = function(item) {
+    this.addItemData(item);
+    this.state.refreshStats();
+    item.kill();
+};
+
+RPG.Player.prototype.addItemData = function (item){
+    for ( key in item.data){
+        if ( this.data[key]){
+            this.data[key] += parseInt(item.data[key]);
+        }else if(key === 'isQuest'){
+            this.data.items.push(item);
+        }
+    }
+};
