@@ -25,6 +25,17 @@
     "attack": 12,
     "defense": 8,
     "gold": 100,
-    "quests": []
+    "quests": [
+      {
+        "name": "Find the Magic Scroll",
+        "code": "magic-scroll",
+        "isCompleted": false
+      },
+      {
+        "name": "Find the Helmet of the Golds",
+        "code": "gods-helmet",
+        "isCompleted": false
+      }
+    ]
   }
 }
