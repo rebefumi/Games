@@ -68,9 +68,6 @@ RPG.GameState = {
     gameOver: function () {
         this.game.state.start('GameState', true, false, this.currentLevel);
     },
-    render: function () {
-        this.game.debug.body(this.player);
-    },
     cursorMovement: function () {
         this.player.body.velocity.x = 0;
         this.player.body.velocity.y = 0;
