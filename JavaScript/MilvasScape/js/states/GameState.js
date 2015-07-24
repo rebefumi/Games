@@ -82,12 +82,12 @@ RPG.GameState = {
 
         if (this.cursors.up.isDown || this.player.btnsPressed.up || this.player.btnsPressed.upright || this.player.btnsPressed.upleft) {
             this.player.body.velocity.y = -this.gameData.player_speed;
-            if (this.cursors.up.isDown || this.player.btnsPressed.up) {
+            if ((this.cursors.up.isDown || this.player.btnsPressed.up) && (!this.cursors.left.isDown  && !this.cursors.right.isDown)) {
                 this.player.play('walk_up');
             }
         } else if (this.cursors.down.isDown || this.player.btnsPressed.down || this.player.btnsPressed.downright || this.player.btnsPressed.downleft) {
             this.player.body.velocity.y = this.gameData.player_speed;
-            if (this.cursors.down.isDown || this.player.btnsPressed.down) {
+            if ((this.cursors.down.isDown || this.player.btnsPressed.down) && (!this.cursors.left.isDown  && !this.cursors.right.isDown)) {
                 this.player.play('walk_down');
             }
         }
