@@ -18,44 +18,42 @@ Phaser.Plugin.VirtualPad.prototype.setup = function (player, buttons){
    this.setTexture('diagonalBitmap', '#4BAFE3', this.btnW, this.btnH);
    this.setTexture('actionBitmap', '#C14BE3', this.sizeActionBtn, this.sizeActionBtn);
 
-   this.directionBitmap = this.game.cache.getBitmapData('directionBitmap');
-
   if (this.buttons.left){
     this.leftArrow =  {}
     this.setPosition(this.leftArrow, this.edgeDistance, this.game.height - this.edgeDistance - this.btnW - this.btnH);
-    this.leftArrow = this.directionalButton(this.leftArrow, this.leftArrow.x, this.leftArrow.y, this.directionBitmap, "left");
+    this.directionalButton('leftArrow', this.leftArrow.x, this.leftArrow.y, this.directionBitmap, "left");
   }
 
   if (this.buttons.right){
     this.rightArrow = {};
     this.setPosition(this.rightArrow, this.edgeDistance + this.btnH + this.btnW, this.game.height - this.edgeDistance - this.btnW - this.btnH);
-    this.rightArrow = this.directionalButton(this.rightArrow, this.rightArrow.x, this.rightArrow.y, this.directionBitmap, "right");
+    this.directionalButton('rightArrow', this.rightArrow.x, this.rightArrow.y, this.directionBitmap, "right");
   }
   if (this.buttons.up){
     this.upArrow  = {};
     this.setPosition(this.upArrow, this.edgeDistance + this.btnW + this.btnH, this.game.height - this.edgeDistance - 2 * this.btnW - this.btnH);
-    this.upArrow = this.directionalButton(this.upArrow, this.upArrow.x, this.upArrow.y, this.directionBitmap, "up", 0.5, 90);
+    this.directionalButton('upArrow', this.upArrow.x, this.upArrow.y, this.directionBitmap, "up", 0.5, 90);
   }
   if (this.buttons.down){
     this.downArrow =  {};
     this.setPosition(this.downArrow, this.edgeDistance + this.btnW + this.btnH, this.game.height - this.edgeDistance - this.btnW);
-    this.downArrow = this.directionalButton(this.downArrow, this.downArrow.x, this.downArrow.y, this.directionBitmap, "down", 0.5, 90);
+    this.directionalButton('downArrow', this.downArrow.x, this.downArrow.y, this.directionBitmap, "down", 0.5, 90);
   }
   if (this.buttons.upleft){
     this.leftUpArrow = {};
-    this.leftUpArrow = this.directionalButton(this.leftUpArrow, this.leftArrow.x, this.upArrow.y, this.directionBitmap, "upleft", 0.3);
+    this.directionalButton('leftUpArrow', this.leftArrow.x, this.upArrow.y, this.directionBitmap, "upleft", 0.3);
   }
   if (this.buttons.upright){
     this.rightUpArrow = {};
-    this.rightUpArrow = this.directionalButton(this.rightUpArrow, this.rightArrow.x, this.upArrow.y, this.directionBitmap, "upright", 0.3);
+    this.directionalButton('rightUpArrow', this.rightArrow.x, this.upArrow.y, this.directionBitmap, "upright", 0.3);
   }
   if (this.buttons.downleft){
     this.downLeftArrow = {};
-    this.downLeftArrow = this.directionalButton(this.downLeftArrow, this.leftArrow.x, this.downArrow.y, this.directionBitmap, "downleft", 0.3);
+    this.directionalButton('downLeftArrow', this.leftArrow.x, this.downArrow.y, this.directionBitmap, "downleft", 0.3);
   }
   if (this.buttons.downright){
     this.downRightArrow = {};
-    this.downRightArrow = this.directionalButton(this.downRightArrow, this.rightArrow.x, this.downArrow.y, this.directionBitmap, "downright", 0.3);
+    this.directionalButton('downRightArrow', this.rightArrow.x, this.downArrow.y, this.directionBitmap, "downright", 0.3);
   }
 
   if(buttons.action) {
@@ -90,42 +88,39 @@ Phaser.Plugin.VirtualPad.prototype.setPositionY = function (item, y){
 };
 
 Phaser.Plugin.VirtualPad.prototype.setTexture = function (item, color, width, height){
-  var bmd = this.game.add.bitmapData(width, height);
-  bmd.ctx.fillStyle = color;
-  bmd.ctx.fillRect(0,0,width, height);
-  this.game.cache.addBitmapData(item , bmd);
-
+  this[item] = this.game.add.bitmapData(width, height);
+  this[item].ctx.fillStyle = color;
+  this[item].ctx.fillRect(0,0,width, height);
 };
 
 Phaser.Plugin.VirtualPad.prototype.directionalButton = function  (item, x, y, bitmap, direction, alpha, angle ){
   alpha = alpha ? alpha: 0.5;
 
-  item = this.game.add.button( x, y, bitmap);
+  this[item] = this.game.add.button( x, y, bitmap);
 
-  item.alpha = alpha;
+  this[item].alpha = alpha;
   if (angle){
-    item.angle = angle;
+    this[item].angle = angle;
   }
-  item.fixedToCamera = true;
+  this[item].fixedToCamera = true;
 
   //events
-  item.events.onInputDown.add(function(){
+  this[item].events.onInputDown.add(function(){
     this.player.btnsPressed[direction] = true;
   }, this);
 
-  item.events.onInputUp.add(function(){
+  this[item].events.onInputUp.add(function(){
     this.player.btnsPressed[direction] = false;
   }, this);
 
-  item.events.onInputOver.add(function(){
+  this[item].events.onInputOver.add(function(){
     this.player.btnsPressed[direction] = true;
   }, this);
 
-  item.events.onInputOut.add(function(){
+  this[item].events.onInputOut.add(function(){
     this.player.btnsPressed[direction] = false;
   }, this);
 
-  return item;
 };
 
 Phaser.Plugin.VirtualPad.prototype.customButtons = function (size, edge, action){
